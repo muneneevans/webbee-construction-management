@@ -11,7 +11,7 @@ const is = require('is_js');
 
 const initialState: IConfigurationInitialState = {
   // theme: {...base, ...colorOptions.teal, ...lightTheme},
-  theme: {...base, ...colorOptions.cyan, ...lightTheme, colors: colorOptions},
+  theme: {...base, ...colorOptions.purple, ...lightTheme, colors: colorOptions},
 };
 
 const configurationPersistConfig = {

@@ -6,6 +6,7 @@ import {RootState} from '../configureStore';
 
 import {IProcessTypes} from '../Shared/interfaces';
 import moment from 'moment';
+import {ICategory} from './interfaces';
 
 //#region create category
 export const createCategory = () => {
@@ -43,4 +44,55 @@ export const resetCreateCategory = () => {
   };
 };
 
+//#endregion
+
+//#region Delete category
+export const deleteCategory = (categoryId: string) => {
+  return (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch({
+      type: actionTypes.DELETE_CATEGORY_REQUESTED,
+      payload: {
+        deleteCategoryProcess: {
+          status: IProcessTypes.PROCESSING,
+          error: '',
+          message: '',
+        },
+      },
+    });
+
+    const newCategories: ICategory[] = Object.assign(
+      [],
+      getCategories(getState()),
+    );
+
+    const foundCategory = newCategories.findIndex(
+      item => item.id === categoryId,
+    );
+    if (foundCategory >= 0) {
+      newCategories.splice(foundCategory, 1);
+    }
+
+    dispatch({
+      type: actionTypes.DELETE_CATEGORY_SUCCEEDED,
+      payload: {
+        deleteCategoryProcess: {
+          status: IProcessTypes.SUCCESS,
+          error: '',
+          message: '',
+        },
+        categories: newCategories,
+      },
+    });
+  };
+};
+export const resetDeleteCategory = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.CREATE_CATEGORY_RESET,
+      payload: {
+        deleteCategoryProcess: {status: IProcessTypes.IDLE},
+      },
+    });
+  };
+};
 //#endregion

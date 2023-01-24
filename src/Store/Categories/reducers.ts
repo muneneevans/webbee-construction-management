@@ -6,17 +6,15 @@ import {ICategoriesInitialState} from './interfaces';
 const is = require('is_js');
 
 const initialState: ICategoriesInitialState = {
-  categories: [
-    {id: '1', name: 'Trucks'},
-    {id: '2', name: 'Sedans'},
-  ],
+  categories: [],
   createCategoryProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
+  deleteCategoryProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
 };
 
 const categoriesPersistConfig = {
   key: 'categories',
   storage: AsyncStorage,
-  blacklist: ['createCategoryProcess'],
+  blacklist: ['createCategoryProcess', 'deleteCategoryProcess'],
 };
 
 const categoriesReducer = (

@@ -2,6 +2,7 @@ import {IProcess} from './../Shared/interfaces';
 export interface ICategoriesInitialState {
   categories: ICategory[];
   createCategoryProcess: IProcess;
+  deleteCategoryProcess: IProcess;
 }
 
 export interface ICategory {

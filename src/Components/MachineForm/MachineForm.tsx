@@ -18,7 +18,7 @@ const MachineForm = ({machine}: Props) => {
 
   return (
     <Wrapper>
-      <Text>{`Id: ${machine.id}`}</Text>
+      <MachineTitle>{`Id: ${machine.id}`}</MachineTitle>
       {machineAttributes.map(machineAttribute => (
         <MachineAttributeForm
           key={machineAttribute.id}
@@ -34,6 +34,14 @@ export default MachineForm;
 //#region styled components
 const Wrapper = styled.View`
   padding: 10px;
+  border-width: 1px;
+  border-color: ${props => props.theme.BORDER_COLOR};
+`;
+
+const MachineTitle = styled.Text`
+  font-family: ${props => props.theme.PRIMARY_FONT_FAMILY_BOLD};
+  font-size: ${props => props.theme.FONT_SIZE_LARGE}px;
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
 
 //#endregion

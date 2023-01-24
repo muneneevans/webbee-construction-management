@@ -57,8 +57,8 @@ const CategorySection = styled.View`
   background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR};
 `;
 const CategorySectionTitle = styled.Text`
-  font-family: ${props => props.theme.PRIMARY_FONT_FAMILY};
-  font-size: ${props => props.theme.FONT_SIZE_LARGE};
+  font-family: ${props => props.theme.PRIMARY_FONT_FAMILY_BOLD};
+  font-size: ${props => props.theme.FONT_SIZE_LARGE}px;
   color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `;
 //#endregion

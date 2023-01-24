@@ -8,6 +8,9 @@ import {useWindowDimensions} from 'react-native';
 import {useSelector, shallowEqual} from 'react-redux';
 import {getTheme} from 'src/Store/Configuration/selectors';
 import {ThemeProvider} from 'styled-components';
+import DrawerComponent from 'src/Screens/Drawer/Drawer';
+import Category from 'src/Screens/Category/Category';
+import Settings from 'src/Screens/Settings/Settings';
 
 type RootDrawerParamList = {
   Dashboard: {
@@ -28,11 +31,16 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Drawer.Navigator
+        initialRouteName="Dashboard"
+        drawerContent={DrawerComponent}
+        drawerStyle={{width: '85%'}}
         screenOptions={{
           drawerType: dimensions.width >= 768 ? 'permanent' : 'front',
         }}>
         <Drawer.Screen name="Dashboard" component={Dashboard} />
         <Drawer.Screen name="Categories" component={Categories} />
+        <Drawer.Screen name="Category" component={Category} />
+        <Drawer.Screen name="Settings" component={Settings} />
       </Drawer.Navigator>
     </ThemeProvider>
   );

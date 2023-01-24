@@ -9,6 +9,7 @@ import {bindActionCreators} from 'redux';
 import {updateMachineAttribute} from 'src/Store/Machines/actions';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import FieldLabel from '../Form/FIeldLabel';
 const is = require('is_js');
 
 type Props = {
@@ -54,7 +55,7 @@ const MachineAttributeForm = ({machineAttribute}: Props) => {
   //#endregion
   return (
     <Field>
-      <Text>{machineAttribute.attributeDetails.name}</Text>
+      <FieldLabel>{machineAttribute.attributeDetails.name}</FieldLabel>
       <Switcher
         value={machineAttribute.attributeDetails.type}
         TEXT={

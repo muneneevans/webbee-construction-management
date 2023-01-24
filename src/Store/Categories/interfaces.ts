@@ -1,6 +1,14 @@
-export const ACTION_REQUESTED = 'categories.ACTION_REQUESTED';
-export const ACTION_SUCCEEDED = 'categories.ACTION_SUCCEEDED';
-export const ACTION_FAILED = 'categories.ACTION_FAILED';
-export const ACTION_DISCONNECTED = 'categories.ACTION_DISCONNECTED';
-export const ACTION_RESET = 'categories.ACTION_RESET';
-export const ACTION_RESET_DATA = 'categories.ACTION_RESET_DATA';
+import {IProcess} from './../Shared/interfaces';
+export interface ICategoriesInitialState {
+  categories: ICategory[];
+  createCategoryProcess: IProcess;
+}
+
+export interface ICategory {
+  name: string;
+  id: string;
+}
+
+export interface ICreateCategoryData {
+  name: string;
+}

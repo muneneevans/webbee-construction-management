@@ -1,6 +1,46 @@
-export const ACTION_REQUESTED = 'categories.ACTION_REQUESTED';
-export const ACTION_SUCCEEDED = 'categories.ACTION_SUCCEEDED';
-export const ACTION_FAILED = 'categories.ACTION_FAILED';
-export const ACTION_DISCONNECTED = 'categories.ACTION_DISCONNECTED';
-export const ACTION_RESET = 'categories.ACTION_RESET';
-export const ACTION_RESET_DATA = 'categories.ACTION_RESET_DATA';
+import {getCategories} from './selectors';
+import * as actionTypes from './actionTypes';
+import {Dispatch} from 'redux';
+
+import {RootState} from '../configureStore';
+
+import {IProcessTypes} from '../Shared/interfaces';
+import moment from 'moment';
+
+//#region create category
+export const createCategory = () => {
+  return (dispatch: any, getState: () => RootState) => {
+    //Signal the start of the process
+
+    dispatch({
+      type: actionTypes.CREATE_CATEGORY_REQUESTED,
+      payload: {
+        createCategoryProcess: {status: IProcessTypes.PROCESSING},
+      },
+    });
+
+    //create category
+    const newCategories = Object.assign([], getCategories(getState()));
+    newCategories.push({
+      id: moment().valueOf().toString(),
+      name: '',
+    });
+
+    dispatch({
+      type: actionTypes.CREATE_CATEGORY_SUCCEEDED,
+      payload: {categories: newCategories},
+    });
+  };
+};
+export const resetCreateCategory = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.CREATE_CATEGORY_RESET,
+      payload: {
+        createCategoryProcess: {status: IProcessTypes.IDLE},
+      },
+    });
+  };
+};
+
+//#endregion

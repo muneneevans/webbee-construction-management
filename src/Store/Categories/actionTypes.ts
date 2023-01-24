@@ -1,6 +1,6 @@
-export const ACTION_REQUESTED = 'categories.ACTION_REQUESTED';
-export const ACTION_SUCCEEDED = 'categories.ACTION_SUCCEEDED';
-export const ACTION_FAILED = 'categories.ACTION_FAILED';
-export const ACTION_DISCONNECTED = 'categories.ACTION_DISCONNECTED';
-export const ACTION_RESET = 'categories.ACTION_RESET';
-export const ACTION_RESET_DATA = 'categories.ACTION_RESET_DATA';
+//#region Create category
+export const CREATE_CATEGORY_REQUESTED = 'categories.CREATE_CATEGORY_REQUESTED';
+export const CREATE_CATEGORY_SUCCEEDED = 'categories.CREATE_CATEGORY_SUCCEEDED';
+export const CREATE_CATEGORY_FAILED = 'categories.CREATE_CATEGORY_FAILED';
+export const CREATE_CATEGORY_RESET = 'categories.CREATE_CATEGORY_RESET';
+//#endregion

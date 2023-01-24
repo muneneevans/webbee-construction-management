@@ -1,14 +1,10 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-type Props = {
-  title: string;
-};
-
-const Dashboard = ({title = 'Dashboard'}: Props) => {
+const Dashboard = () => {
   return (
     <View>
-      <Text>{title}</Text>
+      <Text>{'Dashboard'}</Text>
     </View>
   );
 };

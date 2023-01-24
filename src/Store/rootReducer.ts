@@ -5,10 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import all reducers
 import configReducer from './Configuration/reducers';
 import categoriesReducer from './Categories/reducers';
+import attributesReducer from './Attributes/reducers';
 
 const persistConfig = {
   key: 'root',
-  blacklist: ['configuration', 'categories'],
+  blacklist: ['configuration', 'categories', 'attributes'],
   storage: AsyncStorage,
 };
 
@@ -17,6 +18,7 @@ const rootReducer = persistReducer(
   combineReducers({
     configuration: configReducer,
     categories: categoriesReducer,
+    attributes: attributesReducer,
   }),
 );
 

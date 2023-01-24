@@ -28,8 +28,7 @@ export default Picker;
 
 //#region styled components
 const PickerModal = styled(Modal)`
-  justify-content: flex-end;
-  margin: 0;
+  justify-content: center;
 `;
 const PickerContentContainer = styled.View`
   background-color: ${props => props.theme.PRIMARY_BACKGROUND_COLOR_LIGHT};

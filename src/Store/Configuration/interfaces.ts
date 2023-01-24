@@ -101,6 +101,15 @@ export interface ITheme {
 
   colors: IColorOption;
 }
+
+export interface IColor {
+  name: string;
+  PRIMARY_COLOR_FAINT: string;
+  PRIMARY_COLOR_LIGHT: string;
+  PRIMARY_COLOR: string;
+  PRIMARY_COLOR_BOLD: string;
+  PRIMARY_FOREGROUND_COLOR: string;
+}
 export interface IColorOption {
   red: {
     name: string;

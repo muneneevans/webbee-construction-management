@@ -3,12 +3,12 @@ import React, {useEffect} from 'react';
 import {ICategory} from 'src/Store/Categories/interfaces';
 import FieldInput from 'src/Components/Form/FieldInput';
 import styled, {ThemeConsumer} from 'styled-components/native';
-import {Controller, useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
   deleteCategory,
   resetDeleteCategory,
+  updateCategory,
 } from 'src/Store/Categories/actions';
 import Button from 'src/Components/Button/Button';
 import FieldLabel from 'src/Components/Form/FIeldLabel';
@@ -24,15 +24,19 @@ type Props = {
 
 const CategoryForm = ({category}: Props) => {
   //#region hook form
-  const {control} = useForm();
   const dispatch = useDispatch();
   const deleteCategoryAction = bindActionCreators(deleteCategory, dispatch);
   const resetDeleteCategoryAction = bindActionCreators(
     resetDeleteCategory,
     dispatch,
   );
+  const updateCategoryAction = bindActionCreators(updateCategory, dispatch);
   const handleDeletePress = () => {
     deleteCategoryAction(category.id);
+  };
+
+  const handleUpdateCategoryName = (newName: string) => {
+    updateCategoryAction({...category, name: newName});
   };
 
   //#endregion
@@ -58,30 +62,19 @@ const CategoryForm = ({category}: Props) => {
       {theme => (
         <Card>
           {/* Name */}
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, name, value}}) => (
-              <Field>
-                <FieldLabel>
-                  {is.not.empty(value) ? value : 'Category Name'}
-                </FieldLabel>
-                <CategoryInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  placeholder={name}
-                  placeholderTextColor={theme.BORDER_COLOR}
-                  returnKeyType={Platform.OS === 'ios' ? 'done' : 'next'}
-                  onSubmitEditing={() => Keyboard.dismiss}
-                />
-              </Field>
-            )}
-            name="name"
-            defaultValue={category.name}
-          />
+          <Field>
+            <FieldLabel>
+              {is.not.empty(category.name) ? category.name : 'Category Name'}
+            </FieldLabel>
+            <CategoryInput
+              onChangeText={handleUpdateCategoryName}
+              value={category.name}
+              placeholder={'CategoryName'}
+              placeholderTextColor={theme.BORDER_COLOR}
+              returnKeyType={Platform.OS === 'ios' ? 'done' : 'next'}
+              onSubmitEditing={() => Keyboard.dismiss}
+            />
+          </Field>
 
           {/* Attributes */}
           <FieldContainer>

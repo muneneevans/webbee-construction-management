@@ -9,6 +9,7 @@ const initialState: ICategoriesInitialState = {
   categories: [],
   createCategoryProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
   deleteCategoryProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
+  updateCategoryProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
 };
 
 const categoriesPersistConfig = {

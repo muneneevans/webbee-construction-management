@@ -96,3 +96,54 @@ export const resetDeleteCategory = () => {
   };
 };
 //#endregion
+
+//#region update category
+export const updateCategory = (categoryDetails: ICategory) => {
+  return (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch({
+      type: actionTypes.UPDATE_CATEGORY_REQUESTED,
+      payload: {
+        updateCategoryProcess: {
+          status: IProcessTypes.PROCESSING,
+          error: '',
+          message: '',
+        },
+      },
+    });
+
+    let newCategories: ICategory[] = Object.assign(
+      [],
+      getCategories(getState()),
+    );
+
+    const foundCategory = newCategories.findIndex(
+      item => item.id === categoryDetails.id,
+    );
+    if (foundCategory >= 0) {
+      newCategories[foundCategory] = categoryDetails;
+    }
+
+    dispatch({
+      type: actionTypes.UPDATE_CATEGORY_SUCCEEDED,
+      payload: {
+        updateCategoryProcess: {
+          status: IProcessTypes.SUCCESS,
+          error: '',
+          message: '',
+        },
+        categories: newCategories,
+      },
+    });
+  };
+};
+export const resetUpdateCategory = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.UPDATE_CATEGORY_RESET,
+      payload: {
+        updateCategoryProcess: {status: IProcessTypes.IDLE},
+      },
+    });
+  };
+};
+//#endregion

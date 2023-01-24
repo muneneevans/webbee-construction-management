@@ -6,3 +6,6 @@ export const getCreateCategoryProcess = ({categories}: RootState) =>
 
 export const getDeleteCategoryProcess = ({categories}: RootState) =>
   categories.deleteCategoryProcess;
+
+export const getUpdateCategoryProcess = ({categories}: RootState) =>
+  categories.updateCategoryProcess;

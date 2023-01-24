@@ -6,10 +6,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import configReducer from './Configuration/reducers';
 import categoriesReducer from './Categories/reducers';
 import attributesReducer from './Attributes/reducers';
+import machinesReducer from './Machines/reducers';
 
 const persistConfig = {
   key: 'root',
-  blacklist: ['configuration', 'categories', 'attributes'],
+  blacklist: ['configuration', 'categories', 'attributes', 'machines'],
   storage: AsyncStorage,
 };
 
@@ -19,6 +20,7 @@ const rootReducer = persistReducer(
     configuration: configReducer,
     categories: categoriesReducer,
     attributes: attributesReducer,
+    machines: machinesReducer,
   }),
 );
 

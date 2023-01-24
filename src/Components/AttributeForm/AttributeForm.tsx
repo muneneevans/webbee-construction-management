@@ -76,9 +76,9 @@ const AttributeForm = ({attribute}: Props) => {
               </ChipButton>
             }
             DATE={
-              <ChipButton color={theme.colors.pink} onPress={revealTypePicker}>
+              <ChipButton color={theme.colors.brown} onPress={revealTypePicker}>
                 <ChipIcon
-                  IconColor={theme.colors.pink}
+                  IconColor={theme.colors.brown}
                   size={20}
                   name="calendar-outline"
                 />

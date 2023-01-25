@@ -68,6 +68,7 @@ const MachineAttributeForm = ({machineAttribute}: Props) => {
           <FieldInput
             value={machineAttribute.value as string}
             onChangeText={handleValueChanged}
+            keyboardType="number-pad"
           />
         }
         CHECKBOX={

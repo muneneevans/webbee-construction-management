@@ -1,3 +1,5 @@
+import {deleteAttribute} from 'src/Store/Attributes/actions';
+import {getAttributes} from 'src/Store/Attributes/selectors';
 import {getCategories} from './selectors';
 import * as actionTypes from './actionTypes';
 import {Dispatch} from 'redux';
@@ -7,6 +9,10 @@ import {RootState} from '../configureStore';
 import {IProcessTypes} from '../Shared/interfaces';
 import moment from 'moment';
 import {ICategory} from './interfaces';
+import {getMachines} from '../Machines/selectors';
+import {IMachine} from '../Machines/interfaces';
+import {deleteMachine} from '../Machines/actions';
+import {IAttribute} from '../Attributes/interfaces';
 
 //#region create category
 export const createCategory = () => {
@@ -48,7 +54,7 @@ export const resetCreateCategory = () => {
 
 //#region Delete category
 export const deleteCategory = (categoryId: string) => {
-  return (dispatch: Dispatch, getState: () => RootState) => {
+  return (dispatch: any, getState: () => RootState) => {
     dispatch({
       type: actionTypes.DELETE_CATEGORY_REQUESTED,
       payload: {
@@ -70,6 +76,18 @@ export const deleteCategory = (categoryId: string) => {
     );
     if (foundCategory >= 0) {
       newCategories.splice(foundCategory, 1);
+
+      getMachines(getState())
+        .filter((item: IMachine) => item.categoryId === categoryId)
+        .forEach((item: IMachine) => {
+          dispatch(deleteMachine(item.id));
+        });
+
+      getAttributes(getState())
+        .filter((item: IAttribute) => item.categoryId === categoryId)
+        .forEach((item: IAttribute) => {
+          dispatch(deleteAttribute(item.id));
+        });
     }
 
     dispatch({

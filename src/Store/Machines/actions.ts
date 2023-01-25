@@ -145,3 +145,148 @@ export const resetUpdateUpdateMachineAttribute = () => {
   };
 };
 //#endregion
+
+//#region delete machine
+export const deleteMachine = (machineId: string) => {
+  return (dispatch: any, getState: () => RootState) => {
+    dispatch({
+      type: actionTypes.DELETE_MACHINE_REQUESTED,
+      payload: {
+        deleteMachineProcess: {
+          status: IProcessTypes.PROCESSING,
+          error: '',
+          message: '',
+        },
+      },
+    });
+
+    getMachineAttributes(getState())
+      .filter((item: IMachineAttribute) => item.machineId === machineId)
+      .forEach((item: IMachineAttribute) => {
+        dispatch(deleteMachineAttribute(item.id));
+      });
+
+    // const newMachineAttributes = Object.assign(
+    //   [],
+    //   getMachineAttributes(getState()),
+    // ).filter((item: IMachineAttribute) => item.machineId !== machineId);
+
+    const newMachines = Object.assign([], getMachines(getState())).filter(
+      (item: IMachine) => item.id !== machineId,
+    );
+
+    dispatch({
+      type: actionTypes.DELETE_MACHINE_SUCCEEDED,
+      payload: {
+        deleteMachineProcess: {
+          status: IProcessTypes.PROCESSING,
+          error: '',
+          message: '',
+        },
+
+        machines: newMachines,
+      },
+    });
+  };
+};
+
+export const resetDeleteMachine = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.DELETE_MACHINE_RESET,
+      deleteMachineProcess: {
+        status: IProcessTypes.PROCESSING,
+        error: '',
+        message: '',
+      },
+    });
+  };
+};
+//#endregion
+
+//#region create machine attribute
+export const createMachineAttribute = (
+  machineId: string,
+  attributeId: string,
+) => {
+  return (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch({
+      type: actionTypes.CREATE_MACHINE_ATTRIBUTE_REQUESTED,
+      payload: {
+        createMachineAttributeProcess: {
+          status: IProcessTypes.PROCESSING,
+          error: '',
+          message: '',
+        },
+      },
+    });
+
+    const newMachineAttributes: IMachineAttribute[] = Object.assign(
+      [],
+      getMachineAttributes(getState()),
+    );
+    // const newMachines: IMachine[] = [];
+    const createdMachineAttribute: IMachineAttribute = {
+      id: moment().valueOf().toString(),
+      machineId,
+      attributeId,
+      value: null,
+    };
+    newMachineAttributes.push(createdMachineAttribute);
+
+    dispatch({
+      type: actionTypes.CREATE_MACHINE_ATTRIBUTE_SUCCEEDED,
+      payload: {
+        createMachineProcess: {
+          status: IProcessTypes.PROCESSING,
+          error: '',
+          message: '',
+        },
+
+        machineAttributes: newMachineAttributes,
+      },
+    });
+  };
+};
+
+export const resetCreateMachineAttribute = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.CREATE_MACHINE_ATTRIBUTE_RESET,
+      payload: {
+        createMachineProcess: {
+          status: IProcessTypes.IDLE,
+          error: '',
+          message: '',
+        },
+      },
+    });
+  };
+};
+//#endregion
+
+//#region  delete machine attributes
+export const deleteMachineAttribute = (machineAttributeId: string) => {
+  return (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch({
+      type: actionTypes.DELETE_MACHINE_ATTRIBUTE_REQUESTED,
+      payload: {
+        updateMachineProcess: {
+          status: IProcessTypes.PROCESSING,
+          error: '',
+          message: '',
+        },
+      },
+    });
+
+    const newMachineAttributes = getMachineAttributes(getState()).filter(
+      (item: IMachineAttribute) => item.id !== machineAttributeId,
+    );
+
+    dispatch({
+      type: actionTypes.DELETE_MACHINE_ATTRIBUTE_SUCCEEDED,
+      payload: {machineAttributes: newMachineAttributes},
+    });
+  };
+};
+//#endregion

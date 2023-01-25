@@ -1,3 +1,5 @@
+import {createMachineAttribute} from './../Machines/actions';
+import {getMachineAttributes, getMachines} from 'src/Store/Machines/selectors';
 import {IAttribute, IAttributeType} from './interfaces';
 import {getAttributes} from './selectors';
 import * as actionTypes from './actionTypes';
@@ -5,11 +7,12 @@ import {Dispatch} from 'redux';
 import {RootState} from '../configureStore';
 import {IProcessTypes} from '../Shared/interfaces';
 import moment from 'moment';
-const is = require('is_js');
+import {IMachine, IMachineAttribute} from '../Machines/interfaces';
+import {deleteMachineAttribute} from '../Machines/actions';
 
 //#region create attrtibute
 export const createAttribute = (categoryId: string) => {
-  return (dispatch: Dispatch, getState: () => RootState) => {
+  return (dispatch: any, getState: () => RootState) => {
     //Signal the start of the process
 
     dispatch({
@@ -22,19 +25,25 @@ export const createAttribute = (categoryId: string) => {
         },
       },
     });
-
-    const newAttributes: IAttribute[] = Object.assign(
-      [],
-      getAttributes(getState()),
-    );
-
-    newAttributes.push({
+    const newAttribute = {
       categoryId,
       type: IAttributeType.text,
       name: '',
       isTitle: false,
       id: moment().valueOf().toString(),
-    });
+    };
+
+    const newAttributes: IAttribute[] = Object.assign(
+      [],
+      getAttributes(getState()),
+    );
+    newAttributes.push(newAttribute);
+
+    getMachines(getState())
+      .filter((item: IMachine) => item.categoryId === categoryId)
+      .forEach(item => {
+        dispatch(createMachineAttribute(item.id, newAttribute.id));
+      });
 
     dispatch({
       type: actionTypes.CREATE_ATTRIBUTE_SUCCEEDED,
@@ -63,7 +72,7 @@ export const resetCreateAttribute = () => {
 
 //#region delete attribute
 export const deleteAttribute = (attributeId: string) => {
-  return (dispatch: Dispatch, getState: () => RootState) => {
+  return (dispatch: any, getState: () => RootState) => {
     dispatch({
       type: actionTypes.DELETE_ATTRIBUTE_REQUESTED,
       payload: {
@@ -85,6 +94,12 @@ export const deleteAttribute = (attributeId: string) => {
 
     if (foundIndex >= 0) {
       newAttributes.splice(foundIndex, 1);
+
+      getMachineAttributes(getState())
+        .filter((item: IMachineAttribute) => item.attributeId === attributeId)
+        .forEach((item: IMachineAttribute) => {
+          dispatch(deleteMachineAttribute(item.id));
+        });
     }
 
     dispatch({

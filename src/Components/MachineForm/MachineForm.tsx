@@ -1,11 +1,13 @@
-import {Text} from 'react-native';
 import React from 'react';
 import {IMachine} from 'src/Store/Machines/interfaces';
 import styled from 'styled-components/native';
 import {getMachineAttributesWithParentAttribute} from 'src/Store/Machines/selectors';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'src/Store/configureStore';
 import MachineAttributeForm from '../MachineAttributeForm/MachineAttributeForm';
+import Button from '../Button/Button';
+import {bindActionCreators} from 'redux';
+import {deleteMachine} from 'src/Store/Machines/actions';
 
 type Props = {machine: IMachine};
 
@@ -16,9 +18,18 @@ const MachineForm = ({machine}: Props) => {
     ),
   );
 
+  const dispatch = useDispatch();
+  const deleteMachineAction = bindActionCreators(deleteMachine, dispatch);
+  const handleDeleteMachine = () => {
+    deleteMachineAction(machine.id);
+  };
+
   return (
     <Wrapper>
-      <MachineTitle>{`Id: ${machine.id}`}</MachineTitle>
+      <MachineTitleField>
+        <MachineTitle>{`Id: ${machine.id}`}</MachineTitle>
+        <Button text="Delete Machine" onPress={handleDeleteMachine} />
+      </MachineTitleField>
       {machineAttributes.map(machineAttribute => (
         <MachineAttributeForm
           key={machineAttribute.id}
@@ -37,7 +48,10 @@ const Wrapper = styled.View`
   border-width: 1px;
   border-color: ${props => props.theme.BORDER_COLOR};
 `;
-
+const MachineTitleField = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
 const MachineTitle = styled.Text`
   font-family: ${props => props.theme.PRIMARY_FONT_FAMILY_BOLD};
   font-size: ${props => props.theme.FONT_SIZE_LARGE}px;

@@ -1,3 +1,4 @@
+import {IMachineAttribute} from 'src/Store/Machines/interfaces';
 import {ICategoryMachineMapping, IMachineAttributeDetails} from './interfaces';
 import {RootState} from '../configureStore';
 import {ICategory} from '../Categories/interfaces';
@@ -22,8 +23,9 @@ export const getMachineCategoryMappings = ({
   );
 };
 
-export const getMachineAttributes = ({machines}: RootState) =>
-  machines.machineAttributes;
+export const getMachineAttributes = ({
+  machines,
+}: RootState): IMachineAttribute[] => machines.machineAttributes;
 export const getMachineAttributesWithParentAttribute = ({
   machines,
   attributes,
@@ -41,7 +43,11 @@ export const getMachineAttributesWithParentAttribute = ({
     [],
   );
 
+export const getCreateMachineAttributeProcess = ({machines}: RootState) =>
+  machines.createMachineAttributeProcess;
 export const getUpdateMachineAttributeProcess = ({machines}: RootState) =>
+  machines.updateMachineAttributeProcess;
+export const getDeleteMachineAttributeProcess = ({machines}: RootState) =>
   machines.updateMachineAttributeProcess;
 
 export const getCreateMachineProcess = ({machines}: RootState) =>

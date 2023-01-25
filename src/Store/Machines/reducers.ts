@@ -9,7 +9,17 @@ const initialState: IMachineInitialState = {
   createMachineProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
   updateMachineProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
   deleteMachineProcess: {status: IProcessTypes.IDLE, error: '', message: ''},
+  createMachineAttributeProcess: {
+    status: IProcessTypes.IDLE,
+    error: '',
+    message: '',
+  },
   updateMachineAttributeProcess: {
+    status: IProcessTypes.IDLE,
+    error: '',
+    message: '',
+  },
+  deleteMachineAttributeProcess: {
     status: IProcessTypes.IDLE,
     error: '',
     message: '',
@@ -25,6 +35,8 @@ const machinesPersistConfig = {
     'createMachineProcess',
     'updateMachineProcess',
     'deleteMachineProcess',
+    'deleteMachineAttributeProcess',
+    'updateMachineAttributeProcess',
   ],
 };
 

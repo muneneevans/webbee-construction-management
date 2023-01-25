@@ -6,7 +6,9 @@ export interface IMachineInitialState {
   updateMachineProcess: IProcess;
   deleteMachineProcess: IProcess;
 
+  createMachineAttributeProcess: IProcess;
   updateMachineAttributeProcess: IProcess;
+  deleteMachineAttributeProcess: IProcess;
 
   machines: IMachine[];
   machineAttributes: IMachineAttribute[];

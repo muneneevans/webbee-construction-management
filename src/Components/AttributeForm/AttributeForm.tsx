@@ -53,6 +53,10 @@ const AttributeForm = ({attribute}: Props) => {
     setShowTypePicker(true);
   };
 
+  const updateTitleText = () => {
+    updateAttributeAction({...attribute, isTitle: true});
+  };
+
   return (
     <ThemeConsumer>
       {theme => (
@@ -63,6 +67,24 @@ const AttributeForm = ({attribute}: Props) => {
               onChangeText={(text: string) => updateAttributeName(text)}
             />
           </FieldInputContainer>
+
+          <Switcher
+            value={attribute.isTitle.toString()}
+            true={
+              <ChipButton color={theme.colors.teal} onPress={updateTitleText}>
+                <ChipIcon IconColor={theme.colors.teal} size={20} name="star" />
+              </ChipButton>
+            }
+            false={
+              <ChipButton color={theme.colors.gray} onPress={updateTitleText}>
+                <ChipIcon
+                  IconColor={theme.colors.gray}
+                  size={20}
+                  name="star-outline"
+                />
+              </ChipButton>
+            }
+          />
 
           <Switcher
             value={attribute.type}

@@ -134,7 +134,8 @@ export const resetDeleteAttribute = () => {
 
 //#region update Attribute
 export const updateAttribute = (attributeDetails: IAttribute) => {
-  return (dispatch: Dispatch, getState: () => RootState) => {
+  return (dispatch: any, getState: () => RootState) => {
+    dispatch(resetCategoryAttributeTitle(attributeDetails.categoryId));
     dispatch({
       type: actionTypes.UPDATE_ATTRIBUTE_REQUESTED,
       payload: {
@@ -166,6 +167,26 @@ export const updateAttribute = (attributeDetails: IAttribute) => {
           error: '',
           message: '',
         },
+        attributes: newAttributes,
+      },
+    });
+  };
+};
+
+export const resetCategoryAttributeTitle = (categoryId: string) => {
+  return (dispatch: Dispatch, getState: () => RootState) => {
+    const newAttributes = Object.assign([], getAttributes(getState())).map(
+      (item: IAttribute) => {
+        if (item.categoryId === categoryId) {
+          return {...item, isTitle: false};
+        }
+        return item;
+      },
+    );
+
+    dispatch({
+      type: actionTypes.UPDATE_ATTRIBUTE_SUCCEEDED,
+      payload: {
         attributes: newAttributes,
       },
     });

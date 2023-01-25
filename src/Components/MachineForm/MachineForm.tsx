@@ -1,5 +1,8 @@
-import React from 'react';
-import {IMachine} from 'src/Store/Machines/interfaces';
+import React, {useEffect, useState} from 'react';
+import {
+  IMachine,
+  IMachineAttributeDetails,
+} from 'src/Store/Machines/interfaces';
 import styled from 'styled-components/native';
 import {getMachineAttributesWithParentAttribute} from 'src/Store/Machines/selectors';
 import {useDispatch, useSelector} from 'react-redux';
@@ -24,10 +27,21 @@ const MachineForm = ({machine}: Props) => {
     deleteMachineAction(machine.id);
   };
 
+  const [title, setTitle] = useState('');
+  useEffect(() => {
+    let foundAttribute = machineAttributes.find(
+      (item: IMachineAttributeDetails) => item.attributeDetails.isTitle,
+    );
+    if (foundAttribute) {
+      setTitle(prevTitle => foundAttribute.value?.toString());
+    }
+  }, [machine]);
+
   return (
     <Wrapper>
       <MachineTitleField>
-        <MachineTitle>{`Id: ${machine.id}`}</MachineTitle>
+        {/* <MachineTitle>{`Id: ${machine.id}`}</MachineTitle> */}
+        <MachineTitle>{`${title}`}</MachineTitle>
         <Button text="Delete Machine" onPress={handleDeleteMachine} />
       </MachineTitleField>
       {machineAttributes.map(machineAttribute => (
